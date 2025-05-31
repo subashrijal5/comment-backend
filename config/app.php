@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'token_secret' => env('TOKEN_SECRET', 'my-secret-key'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

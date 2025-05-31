@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Site extends Model
 {
@@ -10,6 +11,7 @@ class Site extends Model
         'user_id',
         'name',
         'domain',
+        'token',
     ];
 
     public function user()
@@ -20,5 +22,15 @@ class Site extends Model
     public function blogs()
     {
         return $this->hasMany(Blog::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($site) {
+            $secret = config('app.token_secret');
+            $site->token = hash('sha256', $secret . $site->domain);
+        });
     }
 }
