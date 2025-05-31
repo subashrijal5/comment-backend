@@ -13,17 +13,22 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
+    {
+        title: 'Sites',
+        href: '/sites',
+        icon: LayoutGrid,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        title: 'Backend Repository',
+        href: 'https://github.com/subashrijal5/comment-backend',
         icon: Folder,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
+        title: 'Astro Repository',
+        href: 'https://github.com/subashrijal5/astro-comment',
         icon: BookOpen,
     },
 ];

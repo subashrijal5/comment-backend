@@ -59,12 +59,22 @@ class SiteController extends Controller
     /**
      * Display the specified site.
      */
-    public function show(Site $site)
+    public function show(Site $site, Request $request)
     {
         $this->authorize('view', $site);
 
+        $perPage = $request->input('per_page', 10);
+        $blogs = $site->blogs()
+            ->with(['comments' => function($query) {
+                $query->whereNull('parent_id')
+                      ->with(['parent', 'reactions']);
+            }, 'reactions'])
+            ->latest()
+            ->paginate($perPage);
+
         return Inertia::render('Sites/Show', [
-            'site' => $site->load('blogs')
+            'site' => $site,
+            'blogs' => $blogs
         ]);
     }
 
