@@ -3,7 +3,7 @@ export interface Site {
   user_id: number;
   name: string;
   domain: string;
-  token: string;
+  client_id: string;
   created_at: string;
   updated_at: string;
   blogs?: Blog[];

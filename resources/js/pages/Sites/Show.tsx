@@ -43,7 +43,7 @@ export default function Show({ site, blogs }: Props) {
     };
 
     const copyToken = () => {
-        navigator.clipboard.writeText(site.token);
+        navigator.clipboard.writeText(site.client_id);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
@@ -131,7 +131,7 @@ export default function Show({ site, blogs }: Props) {
                                 <h3 className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">Site Token</h3>
                                 <div className="flex">
                                     <div className="flex-1 overflow-x-auto rounded-l-md bg-gray-100 p-2 font-mono text-sm whitespace-nowrap dark:bg-gray-800">
-                                        {site.token}
+                                        {site.client_id}
                                     </div>
                                     <Button variant="outline" className="rounded-l-none" onClick={copyToken}>
                                         {copied ? 'Copied!' : <Copy className="h-4 w-4" />}
@@ -143,7 +143,7 @@ export default function Show({ site, blogs }: Props) {
                                 <h3 className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">Integration Code</h3>
                                 <div className="overflow-x-auto rounded-md bg-gray-100 p-4 dark:bg-gray-800">
                                     <pre className="text-sm">
-                                        {`<script src="https://yourapp.com/js/comments.js" data-site-id="${site.token}"></script>`}
+                                        {`<script src="https://yourapp.com/js/comments.js" data-site-id="${site.client_id}"></script>`}
                                     </pre>
                                 </div>
                                 <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">

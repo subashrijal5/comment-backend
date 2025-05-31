@@ -4,14 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
 
 class Site extends Model
 {
+    use HasApiTokens;
     protected $fillable = [
         'user_id',
         'name',
         'domain',
-        'token',
+        'client_id',
+        'client_secret',
+    ];
+
+    protected $hidden = [
+        'client_secret',
     ];
 
     public function user()
@@ -30,7 +37,8 @@ class Site extends Model
 
         static::creating(function ($site) {
             $secret = config('app.token_secret');
-            $site->token = hash('sha256', $secret . $site->domain);
+            $site->client_id = Str::uuid();
+            $site->client_secret = hash('sha256', $secret . $site->client_id . $site->domain);
         });
     }
 }

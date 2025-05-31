@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sites', function (Blueprint $table) {
+        Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->morphs('tokenable');
             $table->string('name');
-            $table->string('domain');
-            $table->string('client_id');
-            $table->string('client_secret');
+            $table->string('token', 64)->unique();
+            $table->text('abilities')->nullable();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
-
-            $table->unique(['domain','user_id']);
-            $table->unique(['domain','client_id']);
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sites');
+        Schema::dropIfExists('personal_access_tokens');
     }
 };
