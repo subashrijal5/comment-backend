@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('reactions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('visitor_id');
             $table->foreignId('blog_id')->constrained()->cascadeOnDelete();
             $table->foreignId('comment_id')->nullable()->constrained('comments')->nullOnDelete();
             $table->string('type');
-            $table->bigInteger('total')->default(0);
             $table->timestamps();
+            $table->index('visitor_id');
         });
     }
 

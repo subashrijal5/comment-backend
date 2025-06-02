@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Site;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClientVerificationMiddleware
@@ -34,8 +35,11 @@ class ClientVerificationMiddleware
 
         // Step 3: Validate domain (optional)
         $origin = $request->header('Origin');
+
         if ($origin && !str_contains($origin, $site->domain)) {
-            return response()->json(['message' => 'Invalid domain'], 403);
+            if (!app()->isLocal()) {
+                return response()->json(['message' => 'Invalid domain'], 403);
+            }
         }
         // TODO: Validate signature
         // Step 4: Validate HMAC signature

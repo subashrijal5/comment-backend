@@ -9,8 +9,8 @@ class Reaction extends Model
     protected $fillable = [
         'blog_id',
         'comment_id',
+        'visitor_id',
         'type',
-        'total',
     ];
 
     public function blog()

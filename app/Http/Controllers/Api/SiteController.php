@@ -15,9 +15,15 @@ class SiteController extends Controller
     public function verify(Request $request)
     {
         $site = Site::find($request->site_id);
+        $token = $site->createToken('site-token');
         return response()->json([
             'message' => 'Client verified successfully',
-            'site' => $site,
+            'token' => $token->plainTextToken,
+            'site' => [
+                'id' => $site->id,
+                'name' => $site->name,
+                'domain' => $site->domain,
+            ],
         ]);
     }
 }

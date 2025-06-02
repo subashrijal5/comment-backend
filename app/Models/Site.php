@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Authenticatable;
 
 class Site extends Model
 {
-    use HasApiTokens;
+    use HasApiTokens, Authenticatable;
     protected $fillable = [
         'user_id',
         'name',
